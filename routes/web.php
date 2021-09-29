@@ -22,7 +22,9 @@ use \App\Http\Controllers\Admin\PermissionController;
 use \App\Http\Controllers\Admin\ProfilePermissionController;
 use \App\Http\Controllers\Admin\ProfilePlanController;
 
-Route::prefix('admin')->group(function (){
+Route::prefix('admin')->namespace('Admin')
+    ->middleware('auth')
+    ->group(function (){
 
     /**
      * Details Plans Routes
@@ -103,17 +105,22 @@ Route::prefix('admin')->group(function (){
 
 
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+//Route::get('/', function () {
+//    return Inertia::render('Welcome', [
+//        'canLogin' => Route::has('login'),
+//        'canRegister' => Route::has('register'),
+//        'laravelVersion' => Application::VERSION,
+//        'phpVersion' => PHP_VERSION,
+//    ]);
+//});
 
 //Route::get('/dashboard', function () {
 //    return Inertia::render('Dashboard');
 //})->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+
+//    Auth::routes([
+//        'register' => false
+//    ]);
+
