@@ -21,6 +21,7 @@ use \App\Http\Controllers\Admin\ProfileController;
 use \App\Http\Controllers\Admin\PermissionController;
 use \App\Http\Controllers\Admin\ProfilePermissionController;
 use \App\Http\Controllers\Admin\ProfilePlanController;
+use \App\Http\Controllers\Site\SiteController;
 
 Route::prefix('admin')->namespace('Admin')
     ->middleware('auth')
@@ -103,6 +104,11 @@ Route::prefix('admin')->namespace('Admin')
 
 });
 
+Route::namespace('Site')
+    ->group(function (){
+        Route::get('/plan/{url}', [SiteController::class, 'plan'])->name('plan.subscription');
+        Route::get('/', [SiteController::class, 'index'])->name('site.home');
+});
 
 
 //Route::get('/', function () {

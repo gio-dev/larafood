@@ -37,6 +37,6 @@ class PlanProfileTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('plan_profile');
     }
 }
