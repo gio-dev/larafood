@@ -230,9 +230,9 @@ return [
             'topnav' => true,
         ],
         [
-            'text' => 'Planos',
-            'url'  => 'admin/plans',
-            'icon' => 'fas fa-list-alt'
+            'text' => 'Categorias',
+            'url'  => 'admin/categories',
+            'icon' => 'fas fa-layer-group'
         ],
         [
             'text' => 'Perfis',

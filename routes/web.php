@@ -22,11 +22,19 @@ use \App\Http\Controllers\Admin\PermissionController;
 use \App\Http\Controllers\Admin\ProfilePermissionController;
 use \App\Http\Controllers\Admin\ProfilePlanController;
 use \App\Http\Controllers\Admin\UserController;
+use \App\Http\Controllers\Admin\CategoryController;
 use \App\Http\Controllers\Site\SiteController;
 
 Route::prefix('admin')->namespace('Admin')
     ->middleware('auth')
     ->group(function (){
+
+        /**
+         * Category Routes
+         */
+        Route::any('categories/search', [CategoryController::class, 'search'])->name('categories.search');
+        Route::resource('categories', '\App\Http\Controllers\Admin\CategoryController');
+
 
     /**
      * Profiles Routes
