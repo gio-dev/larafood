@@ -21,11 +21,25 @@ use \App\Http\Controllers\Admin\ProfileController;
 use \App\Http\Controllers\Admin\PermissionController;
 use \App\Http\Controllers\Admin\ProfilePermissionController;
 use \App\Http\Controllers\Admin\ProfilePlanController;
+use \App\Http\Controllers\Admin\UserController;
 use \App\Http\Controllers\Site\SiteController;
 
 Route::prefix('admin')->namespace('Admin')
     ->middleware('auth')
     ->group(function (){
+
+    /**
+     * Profiles Routes
+     */
+//    Route::any('users/search', [ProfileController::class, 'search'])->name('users.search');
+    Route::get('users', [UserController::class, 'index'])->name('users.index');
+//    Route::any('users/search', [ProfileController::class, 'search'])->name('users.search');
+    Route::post('users', [UserController::class, 'store'])->name('users.store');
+    Route::get('users/create', [UserController::class, 'create'])->name('users.create');
+    Route::get('users/{id}', [UserController::class, 'show'])->name('users.show');
+    Route::delete('users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::get('users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('users/{id}', [UserController::class, 'update'])->name('users.update');
 
     /**
      * Details Plans Routes
@@ -57,7 +71,7 @@ Route::prefix('admin')->namespace('Admin')
     Route::get('/', [PlanController::class, 'index'])->name('dashboard.index');
 
     /**
-     * Profiles Routes
+     * Permissions Routes
      */
     Route::any('permissions/search', [PermissionController::class, 'search'])->name('permissions.search');
     Route::post('permissions', [PermissionController::class, 'store'])->name('permissions.store');
@@ -70,7 +84,7 @@ Route::prefix('admin')->namespace('Admin')
     Route::put('permissions/{id}', [PermissionController::class, 'update'])->name('permissions.update');
 
     /**
-     * Permissions Routes
+     * Profiles Routes
      */
     Route::any('profiles/search', [ProfileController::class, 'search'])->name('profiles.search');
     Route::get('profiles', [ProfileController::class, 'index'])->name('profiles.index');

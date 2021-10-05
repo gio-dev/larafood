@@ -245,6 +245,11 @@ return [
             'icon' => 'fas fa-lock'
         ],
         [
+            'text' => 'Usuários',
+            'url'  => 'admin/users',
+            'icon' => 'fas fa-users'
+        ],
+        [
             'text' => 'blog',
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
