@@ -23,11 +23,18 @@ use \App\Http\Controllers\Admin\ProfilePermissionController;
 use \App\Http\Controllers\Admin\ProfilePlanController;
 use \App\Http\Controllers\Admin\UserController;
 use \App\Http\Controllers\Admin\CategoryController;
+use \App\Http\Controllers\Admin\ProductController;
 use \App\Http\Controllers\Site\SiteController;
 
 Route::prefix('admin')->namespace('Admin')
     ->middleware('auth')
     ->group(function (){
+
+        /**
+         * Product Routes
+         */
+        Route::any('products/search', [ProductController::class, 'search'])->name('products.search');
+        Route::resource('products', '\App\Http\Controllers\Admin\ProductController');
 
         /**
          * Category Routes

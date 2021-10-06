@@ -245,6 +245,11 @@ return [
             'icon' => 'fas fa-lock'
         ],
         [
+            'text' => 'Produtos',
+            'url'  => 'admin/products',
+            'icon' => 'fas fa-cubes'
+        ],
+        [
             'text' => 'Usuários',
             'url'  => 'admin/users',
             'icon' => 'fas fa-users'

@@ -14,7 +14,7 @@ class CreateCategoriesTable extends Migration
     public function up()
     {
         Schema::create('categories', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('tenant_id');
             $table->string('name')->unique();
             $table->string('url')->unique();
@@ -28,7 +28,7 @@ class CreateCategoriesTable extends Migration
         });
     }
 
-    /**
+    /**N
      * Reverse the migrations.
      *
      * @return void
