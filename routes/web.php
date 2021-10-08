@@ -25,11 +25,18 @@ use \App\Http\Controllers\Admin\UserController;
 use \App\Http\Controllers\Admin\CategoryController;
 use \App\Http\Controllers\Admin\ProductController;
 use \App\Http\Controllers\Admin\CategoryProductController;
+use \App\Http\Controllers\Admin\TableController;
 use \App\Http\Controllers\Site\SiteController;
 
 Route::prefix('admin')->namespace('Admin')
     ->middleware('auth')
     ->group(function (){
+
+        /**
+         * Table Routes
+         */
+        Route::any('tables/search', [TableController::class, 'search'])->name('tables.search');
+        Route::resource('tables', '\App\Http\Controllers\Admin\TableController');
 
         /**
          * Product Routes

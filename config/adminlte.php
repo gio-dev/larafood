@@ -235,6 +235,11 @@ return [
             'icon' => 'fas fa-layer-group'
         ],
         [
+            'text' => 'Mesas',
+            'url'  => 'admin/tables',
+            'icon' => 'fas fa-table'
+        ],
+        [
             'text' => 'Perfis',
             'url'  => 'admin/profiles',
             'icon' => 'fas fa-address-book'
