@@ -62,6 +62,9 @@
                                 <a href="{{ route('products.edit', $product->id) }}" class="btn btn-outline-primary">
                                     <span class="fas fa-edit mr-2"></span> Editar
                                 </a>
+                                <a href="{{ route('products.categories.index', $product->id) }}" class="btn btn-outline-secondary">
+                                    <span class="fas fa-lock-open mr-2"></span>
+                                </a>
                             </td>
                         </tr>
                     @endforeach

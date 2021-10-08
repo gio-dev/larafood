@@ -26,4 +26,23 @@ class Product extends Model
 
         return $results;
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function categoriesAvaliable($filter = null){
+
+        $permissions = Category::whereNotIn('categories.id', function ($query){
+            $query->select('category_product.category_id');
+            $query->from('category_product');
+            $query->whereRaw("category_product.product_id = {$this->id}");
+        })
+            ->where(function ($queryFilter) use ($filter){
+                if(!is_null($filter)){
+                    $queryFilter->where('categories.name', 'LIKE', "%{$filter}%");
+                }
+            })
+            ->paginate();
+        return $permissions;
+    }
 }

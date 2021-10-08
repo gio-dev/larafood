@@ -24,6 +24,7 @@ use \App\Http\Controllers\Admin\ProfilePlanController;
 use \App\Http\Controllers\Admin\UserController;
 use \App\Http\Controllers\Admin\CategoryController;
 use \App\Http\Controllers\Admin\ProductController;
+use \App\Http\Controllers\Admin\CategoryProductController;
 use \App\Http\Controllers\Site\SiteController;
 
 Route::prefix('admin')->namespace('Admin')
@@ -42,6 +43,15 @@ Route::prefix('admin')->namespace('Admin')
         Route::any('categories/search', [CategoryController::class, 'search'])->name('categories.search');
         Route::resource('categories', '\App\Http\Controllers\Admin\CategoryController');
 
+
+        /**
+         * Product x Category Routes
+         */
+        Route::any('products/{id}/categories/create', [CategoryProductController::class, 'categoriesAvaliable'])->name('products.categories.avaliable');
+        Route::get('products/{id}/categories', [CategoryProductController::class, 'categories'])->name('products.categories.index');
+        Route::post('products/{id}/categories/attach', [CategoryProductController::class, 'attachCategoriesProduct'])->name('products.categories.attach');
+        Route::get('products/{id}/categories/{idCategory}/detach', [CategoryProductController::class, 'detachCategoriesProduct'])->name('products.categories.detach');
+        Route::get('categories/{id}/products', [CategoryProductController::class, 'products'])->name('categories.product.index');
 
     /**
      * Profiles Routes
