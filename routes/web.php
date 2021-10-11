@@ -26,11 +26,18 @@ use \App\Http\Controllers\Admin\CategoryController;
 use \App\Http\Controllers\Admin\ProductController;
 use \App\Http\Controllers\Admin\CategoryProductController;
 use \App\Http\Controllers\Admin\TableController;
+use \App\Http\Controllers\Admin\TenantController;
 use \App\Http\Controllers\Site\SiteController;
 
 Route::prefix('admin')->namespace('Admin')
     ->middleware('auth')
     ->group(function (){
+
+        /**
+         * Tenant Routes
+         */
+        Route::any('tenants/search', [TenantController::class, 'search'])->name('tenants.search');
+        Route::resource('tenants', '\App\Http\Controllers\Admin\TenantController');
 
         /**
          * Table Routes
@@ -146,7 +153,7 @@ Route::prefix('admin')->namespace('Admin')
     Route::get('profiles/{id}/plans', [ProfilePlanController::class, 'plans'])->name('profiles.plans.index');
     Route::post('profiles/{id}/plans/attach', [ProfilePlanController::class, 'attachPlansProfile'])->name('profiles.plans.attach');
     Route::get('profiles/{id}/plans/{idPLan}/detach', [ProfilePlanController::class, 'detachPlansProfile'])->name('profiles.plans.detach');
-    Route::get('plans/{id}/profiles', [ProfilePermissionController::class, 'plansProf'])->name('plans.profile.index');
+    Route::get('plans/{id}/profiles', [ProfilePlanController::class, 'plansProf'])->name('plans.profile.index');
 
 });
 

@@ -13,6 +13,7 @@ class CategoryController extends Controller
 
     public function __construct(Category $category)
     {
+        $this->middleware('can:categories');
         $this->repository = $category;
     }
 

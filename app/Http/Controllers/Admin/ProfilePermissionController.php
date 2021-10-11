@@ -13,6 +13,7 @@ class ProfilePermissionController extends Controller
 
     public function __construct(Profile $profile, Permission $permission)
     {
+        $this->middleware('can:plans');
         $this->profile = $profile;
         $this->permission = $permission;
     }

@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Categorias')
+@section('title', 'Empresas')
 
 @section('content_header')
     <div>
@@ -9,15 +9,13 @@
                 <a class="" href="{{ route('dashboard.index') }}">Dashboard</a>
             </li>
             <li class="breadcrumb-item active">
-                <a class="active" href="javascript:void(0)">Categorias</a>
+                <a class="active" href="javascript:void(0)">Empresas</a>
             </li>
         </ol>
-        <h1 class="d-inline-flex mr-3" style="vertical-align: middle">Categorias</h1>
-{{--        @can('add_cat')--}}
-            <a href="{{ route('categories.create') }}" class="btn btn-outline-info">
-                <i class="fas fa-plus-circle"></i>
-            </a>
-{{--        @endcan--}}
+        <h1 class="d-inline-flex mr-3" style="vertical-align: middle">Empresas</h1>
+{{--        <a href="{{ route('tenants.create') }}" class="btn btn-outline-info">--}}
+{{--          <i class="fas fa-plus-circle"></i>--}}
+{{--        </a>--}}
     </div>
 @stop
 
@@ -30,10 +28,10 @@
                     <h4 class="card-title">Filtros</h4>
                 </div>
             </div>
-            <form method="post" action="{{ route('categories.search') }}" class="form form-inline" name="form-filtes">
+            <form method="post" action="{{ route('tenants.search') }}" class="form form-inline" name="form-filtes">
                 @csrf
                 <div class="form-group">
-                    <input type="text" name="filter" class="form-control" placeholder="Pesquise qualquer informação das categorias"
+                    <input type="text" name="filter" class="form-control" placeholder="Pesquise qualquer informação da Empresas"
                            value="{{ $filters['filter'] ?? '' }}">
                     <button type="submit" class="btn btn-outline-success"><span class="fas fa-search"></span> Filtrar</button>
                 </div>
@@ -43,25 +41,25 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
+                        <th>Logo</th>
                         <th>Nome</th>
-                        <th>Descrição</th>
                         <th style="width: 20%">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($categories as $category)
+                    @foreach($tenants as $tenant)
                         <tr>
                             <td>
-                                {{ $category->name }}
+                                <img style="max-height: 80px" class="img-fluid" src="{{ asset("storage/{$tenant->logo}") }}" alt="{{ $tenant->name }}">
                             </td>
                             <td>
-                                {{ $category->description }}
+                                {{ $tenant->name }}
                             </td>
                             <td style="width: 25%">
-                                <a href="{{ route('categories.show', $category->id) }}" class="btn btn-outline-warning">
+                                <a href="{{ route('tenants.show', $tenant->id) }}" class="btn btn-outline-warning">
                                     <span class="fas fa-eye mr-2"></span> Ver
                                 </a>
-                                <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-outline-primary">
+                                <a href="{{ route('tenants.edit', $tenant->id) }}" class="btn btn-outline-primary">
                                     <span class="fas fa-edit mr-2"></span> Editar
                                 </a>
                             </td>
@@ -72,9 +70,9 @@
         </div>
         <div class="card-footer d-flex justify-content-center">
             @if (isset($filters))
-                {!! $categories->appends($filters)->links() !!}
+                {!! $tenants->appends($filters)->links() !!}
             @else
-                {!! $categories->links() !!}
+                {!! $tenants->links() !!}
             @endif
 
         </div>

@@ -13,6 +13,7 @@ class CategoryProductController extends Controller
 
     public function __construct(Product $product, Category $category)
     {
+        $this->middleware('can:Product');
         $this->product = $product;
         $this->category = $category;
     }

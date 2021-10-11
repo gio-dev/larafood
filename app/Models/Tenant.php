@@ -9,15 +9,26 @@ class Tenant extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'cnpj', 'email', 'url', 'active',
-        'subscriptio', 'expires_at', 'subscription_id','subscription_active', 'subscription_suspended'];
+    protected $fillable = ['name', 'cnpj', 'email', 'url', 'active','logo','active',
+        'subscription', 'expires_at', 'subscription_id','subscription_active', 'subscription_suspended'];
 
     public function users(){
         return $this->hasMany(User::class);
     }
 
     public function plan(){
-        return $this->belongsTo(Tenant::class);
+        return $this->belongsTo(Plan::class);
+    }
+
+    public function search($filter = null){
+        $results = $this
+            ->where('name', 'name', "%{$filter}%")
+            ->orWhere('cnpj', 'LIKE', "%{$filter}%")
+            ->orWhere('email', 'LIKE', "%{$filter}%")
+            ->orWhere('subscription', 'LIKE', "%{$filter}%")
+            ->paginate();
+
+        return $results;
     }
 
 }
