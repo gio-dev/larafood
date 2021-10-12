@@ -27,11 +27,39 @@ use \App\Http\Controllers\Admin\ProductController;
 use \App\Http\Controllers\Admin\CategoryProductController;
 use \App\Http\Controllers\Admin\TableController;
 use \App\Http\Controllers\Admin\TenantController;
+use \App\Http\Controllers\Admin\RoleController;
+use \App\Http\Controllers\Admin\PermissionRoleController;
+use \App\Http\Controllers\Admin\RoleUserController;
 use \App\Http\Controllers\Site\SiteController;
 
 Route::prefix('admin')->namespace('Admin')
     ->middleware('auth')
     ->group(function (){
+
+        /**
+         * Roles x User Routes
+         */
+        Route::any('roles/{id}/users/create', [RoleUserController::class, 'usersAvaliable'])->name('roles.users.avaliable');
+        Route::get('roles/{id}/users', [RoleUserController::class, 'users'])->name('roles.users.index');
+        Route::post('roles/{id}/users/attach', [RoleUserController::class, 'attachUsersRole'])->name('roles.users.attach');
+        Route::get('roles/{id}/users/{idUser}/detach', [RoleUserController::class, 'detachUsersRole'])->name('roles.users.detach');
+        Route::get('users/{id}/roles', [RoleUserController::class, 'usersProf'])->name('users.role.index');
+
+        /**
+         * Profiles x Permissions Routes
+         */
+        Route::any('roles/{id}/permissions/create', [PermissionRoleController::class, 'permissionsAvaliable'])->name('roles.permissions.avaliable');
+        Route::get('roles/{id}/permissions', [PermissionRoleController::class, 'permissions'])->name('roles.permissions.index');
+        Route::post('roles/{id}/permissions/attach', [PermissionRoleController::class, 'attachPermissionsRole'])->name('roles.permissions.attach');
+        Route::get('roles/{id}/permissions/{idPermission}/detach', [PermissionRoleController::class, 'detachPermissionsRole'])->name('roles.permissions.detach');
+        Route::get('permissions/{id}/roles', [PermissionRoleController::class, 'profiles'])->name('permissions.roles.index');
+
+        /**
+         * Table Routes
+         */
+        Route::any('roles/search', [RoleController::class, 'search'])->name('roles.search');
+        Route::resource('roles', '\App\Http\Controllers\Admin\RoleController');
+
 
         /**
          * Tenant Routes

@@ -242,6 +242,12 @@ return [
             'can'  => 'tenants'
         ],
         [
+            'text' => 'Função',
+            'url'  => 'admin/roles',
+            'icon' => 'fas fa-address-book',
+            'can'  => 'roles'
+        ],
+        [
             'text' => 'Mesas',
             'url'  => 'admin/tables',
             'icon' => 'fas fa-table',

@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Usuários')
+@section('title', "Usuários do cargo {$role->name}")
 
 @section('content_header')
     <div>
@@ -8,12 +8,18 @@
             <li class="breadcrumb-item">
                 <a class="" href="{{ route('dashboard.index') }}">Dashboard</a>
             </li>
+            <li class="breadcrumb-item">
+                <a class="" href="{{ route('roles.index') }}">Cargos</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a class="" href="{{ route('roles.show', $role->id) }}">Cargo {{ $role->name }}</a>
+            </li>
             <li class="breadcrumb-item active">
-                <a class="active" href="javascript:void(0)">Usuários</a>
+                <a class="active" href="javascript:void(0)">Usuários do cargo {{ $role->name }}</a>
             </li>
         </ol>
-        <h1 class="d-inline-flex mr-3" style="vertical-align: middle">Usuários</h1>
-        <a href="{{ route('users.create') }}" class="btn btn-outline-info">
+        <h1 class="d-inline-flex mr-3" style="vertical-align: middle">Usuários do cargo {{ $role->name }}</h1>
+        <a href="{{ route('roles.users.avaliable', $role->id) }}" class="btn btn-outline-info">
           <i class="fas fa-plus-circle"></i>
         </a>
     </div>
@@ -28,10 +34,10 @@
 {{--                    <h4 class="card-title">Filtros</h4>--}}
 {{--                </div>--}}
 {{--            </div>--}}
-{{--            <form method="post" action="{{ route('profiles.search') }}" class="form form-inline" name="form-filtes">--}}
+{{--            <form method="post" action="{{ route('roles.search') }}" class="form form-inline" name="form-filtes">--}}
 {{--                @csrf--}}
 {{--                <div class="form-group">--}}
-{{--                    <input type="text" name="filter" class="form-control" placeholder="Pesquise qualquer informação dos planos"--}}
+{{--                    <input type="text" name="filter" class="form-control" placeholder="Pesquise qualquer informação dos useros"--}}
 {{--                           value="{{ $filters['filter'] ?? '' }}">--}}
 {{--                    <button type="submit" class="btn btn-outline-success"><span class="fas fa-search"></span> Filtrar</button>--}}
 {{--                </div>--}}
@@ -42,7 +48,6 @@
                 <thead>
                     <tr>
                         <th>Nome</th>
-                        <th>E-mail</th>
                         <th style="width: 20%">Ações</th>
                     </tr>
                 </thead>
@@ -52,19 +57,9 @@
                             <td>
                                 {{ $user->name }}
                             </td>
-                            <td>
-                                {{ $user->email }}
-                            </td>
-                            <td style="width: 25%">
-                                <a href="{{ route('users.show', $user->id) }}" class="btn btn-outline-warning">
-                                    <span class="fas fa-eye mr-2"></span> Ver
-                                </a>
-                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-outline-primary">
-                                    <span class="fas fa-edit mr-2"></span> Editar
-                                </a>
-
-                                <a href="{{ route('users.role.index', $user->id) }}" class="btn btn-outline-secondary">
-                                    <span class="fas fa-lock-open mr-2"></span>
+                            <td style="width: 20%">
+                                <a href="{{ route('roles.users.detach', [$role->id, $user->id]) }}" class="btn btn-outline-secondary">
+                                    <span class="fas fa-lock-open "></span>
                                 </a>
                             </td>
                         </tr>
