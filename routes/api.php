@@ -15,10 +15,29 @@ use Illuminate\Support\Facades\Route;
 */
 
 use \App\Http\Controllers\Api\TenantApiController;
+use \App\Http\Controllers\Api\CategoryApiController;
+use \App\Http\Controllers\Api\TableApiController;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+/**
+ * Tenants
+ */
+
 Route::get('/tenants/{uuid}', [TenantApiController::class, 'show']);
 Route::get('/tenants', [TenantApiController::class, 'index']);
+
+/**
+ * Categories
+ */
+Route::get('/categories/{url}', [CategoryApiController::class, 'show']);
+Route::get('/categories', [CategoryApiController::class, 'getCategoriesByTenant']);
+
+
+/**
+ * Tables
+ */
+Route::get('/tables/{url}', [TableApiController::class, 'show']);
+Route::get('/tables', [TableApiController::class, 'getTablesByTenant']);
