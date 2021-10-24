@@ -1,8 +1,6 @@
 <?php
 
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +29,12 @@ use \App\Http\Controllers\Admin\RoleController;
 use \App\Http\Controllers\Admin\PermissionRoleController;
 use \App\Http\Controllers\Admin\RoleUserController;
 use \App\Http\Controllers\Site\SiteController;
+
+Route::get('teste',function (){
+    $client = \App\Models\Client::first();
+    $token = $client->createToken('tokenteste');
+    dd($token->plainTextToken,$token);
+});
 
 Route::prefix('admin')->namespace('Admin')
     ->middleware('auth')

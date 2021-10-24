@@ -1,6 +1,6 @@
 <?php
 
-use     Illuminate\Http\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,7 +18,16 @@ use \App\Http\Controllers\Api\TenantApiController;
 use \App\Http\Controllers\Api\CategoryApiController;
 use \App\Http\Controllers\Api\TableApiController;
 use \App\Http\Controllers\Api\ProductApiController;
-
+use \App\Http\Controllers\Api\Auth\RegisterController;
+use \App\Http\Controllers\Api\Auth\AuthClientController;
+Route::group([
+    'middleware' => 'auth:sanctum',
+    'prefix' => 'v1',
+    'namespace' => 'Api'
+], function (){
+    Route::get('/auth/me', [AuthClientController::class, 'me']);
+    Route::post('/auth/logout', [AuthClientController::class, 'logout']);
+});
 Route::group([
     'prefix' => 'v1',
     'namespace' => 'Api'
@@ -47,6 +56,16 @@ Route::group([
      */
     Route::get('/products/{flag}', [ProductApiController::class, 'show']);
     Route::get('/products', [ProductApiController::class, 'productsByTenant']);
+
+    /**
+     * clients
+     */
+    Route::post('/client', [RegisterController::class, 'store']);
+
+    /**
+     * Sanctum Auth
+     */
+    Route::post('/sanctum/token', [AuthClientController::class, 'auth']);
 });
 
 Route::group([
@@ -77,6 +96,11 @@ Route::group([
      */
     Route::get('/products/{flag}', [ProductApiController::class, 'show']);
     Route::get('/products', [ProductApiController::class, 'productsByTenant']);
+
+    /**
+     * clients
+     */
+    Route::post('/client', [ProductApiController::class, 'productsByTenant']);
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
