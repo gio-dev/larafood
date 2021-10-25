@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Table;
+use Illuminate\Support\Str;
 
 class TableObserver
 {
@@ -59,5 +60,10 @@ class TableObserver
     public function forceDeleted(Table $table)
     {
         //
+    }
+
+    public function creating(Table $table)
+    {
+        $table->uuid = Str::uuid();
     }
 }
