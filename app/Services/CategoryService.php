@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Repositories\CategoryRepository;
+use App\Repositories\Contracts\CategoryRepositoryInterface;
 use App\Repositories\Contracts\TenantRepositoryInterface;
 use Illuminate\Support\Str;
 
@@ -11,18 +11,18 @@ class CategoryService
     protected $categoryRepository;
     protected $tenantRepository;
 
-    public function __construct(TenantRepositoryInterface $tenantRepository, CategoryRepository $categoryRepository)
+    public function __construct(TenantRepositoryInterface $tenantRepository, CategoryRepositoryInterface $categoryRepository)
     {
         $this->tenantRepository = $tenantRepository;
         $this->categoryRepository = $categoryRepository;
     }
 
-    public function getCategoriesByUuid(string $uuid, int $perPage){
+    public function getCategoriesByTenant(string $uuid, int $perPage){
         $tenant = $this->tenantRepository->getTenantByUuid($uuid);
         return $this->categoryRepository->getCategoriesByTenantId($tenant->id, $perPage);
     }
-    public function getCategoryByUrl(string $uuid,string $url){
+    public function getCategoryByUuid(string $uuid,string $identify){
         $tenant = $this->tenantRepository->getTenantByUuid($uuid);
-        return $this->categoryRepository->getCategoryByUrl($tenant->id,$url);
+        return $this->categoryRepository->getCategoryByUuid($tenant->id,$identify);
     }
 }

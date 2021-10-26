@@ -8,30 +8,30 @@ use Illuminate\Support\Facades\DB;
 
 class TableRepository implements TableRepositoryInterface
 {
-//    protected $table;
+    protected $table;
     /**
      * @var Table
      */
-    protected $entity;
+//    protected $entity;
 
-//    public function __construct()
-    public function __construct(Table $table)
+    public function __construct()
+//    public function __construct(Table $table)
     {
-//        $this->table = 'tables';
-        $this->entity = $table;
+        $this->table = 'tables';
+//        $this->entity = $table;
     }
 
     public function getTablesByTenantId(int $idTenant, int $perPage)
     {
-//        return DB::table($this->table)
-        return $this->entity
+        return DB::table($this->table)
+//        return $this->entity
             ->where('tenant_id', $idTenant)
             ->paginate($perPage);
     }
-    public function getTableByIdentify(int $idTenant,string $identify){
-//        return DB::table($this->table)
-        return $this->entity
-            ->where('identify', $identify)
+    public function getTableByUuid(int $idTenant,string $uuid){
+        return DB::table($this->table)
+//        return $this->entity
+            ->where('uuid', $uuid)
             ->where('tenant_id', $idTenant)
             ->first();
     }

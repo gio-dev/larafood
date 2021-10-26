@@ -14,13 +14,12 @@ class ProductRepository implements ProductRepositoryInterface
         $this->table = 'products';
     }
 
-    public function getProductsByTenantId(int $idTenant,array $categories, int $perPage)
+    public function getProductsByCategories(int $idTenant,array $categories, int $perPage)
     {
         return DB::table($this->table)
             ->join('category_product', 'category_product.product_id', '=', 'products.id')
             ->join('categories', 'category_product.category_id', '=', 'categories.id')
             ->where('products.tenant_id', $idTenant)
-            ->where('categories.tenant_id', $idTenant)
             ->where('categories.tenant_id', $idTenant)
             ->where(function ($query) use ($categories){
                 if(is_array($categories) && count($categories) > 0){
@@ -31,9 +30,9 @@ class ProductRepository implements ProductRepositoryInterface
             ->paginate($perPage);
     }
 
-    public function getProductByFlag(int $idTenant, string $flag){
+    public function getProductByUuid(int $idTenant, string $uuid){
         return DB::table($this->table)
-            ->where('flag', $flag)
+            ->where('uuid', $uuid)
             ->where('tenant_id', $idTenant)
             ->first();
     }

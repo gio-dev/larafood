@@ -54,7 +54,7 @@ Route::group([
     /**
      * products
      */
-    Route::get('/products/{flag}', [ProductApiController::class, 'show']);
+    Route::get('/products/{identify}', [ProductApiController::class, 'show']);
     Route::get('/products', [ProductApiController::class, 'productsByTenant']);
 
     /**
@@ -66,41 +66,6 @@ Route::group([
      * Sanctum Auth
      */
     Route::post('/sanctum/token', [AuthClientController::class, 'auth']);
-});
-
-Route::group([
-    'prefix' => 'v2',
-    'namespace' => 'Api'
-], function (){
-    /**
-     * Tenants
-     */
-    Route::get('/tenants/{uuid}', [TenantApiController::class, 'show']);
-    Route::get('/tenants', [TenantApiController::class, 'index']);
-
-    /**
-     * Categories
-     */
-    Route::get('/categories/{url}', [CategoryApiController::class, 'show']);
-    Route::get('/categories', [CategoryApiController::class, 'getCategoriesByTenant']);
-
-
-    /**
-     * Tables
-     */
-    Route::get('/tables/{url}', [TableApiController::class, 'show']);
-    Route::get('/tables', [TableApiController::class, 'getTablesByTenant']);
-
-    /**
-     * products
-     */
-    Route::get('/products/{flag}', [ProductApiController::class, 'show']);
-    Route::get('/products', [ProductApiController::class, 'productsByTenant']);
-
-    /**
-     * clients
-     */
-    Route::post('/client', [ProductApiController::class, 'productsByTenant']);
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

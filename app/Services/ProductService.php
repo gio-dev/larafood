@@ -16,12 +16,12 @@ class ProductService
         $this->productRepository = $productRepository;
     }
 
-    public function getProductsByUuid(string $uuid, array $categories, int $perPage){
+    public function getProductsByCategories(string $uuid, array $categories, int $perPage){
         $tenant = $this->tenantRepository->getTenantByUuid($uuid);
-        return $this->productRepository->getProductsByTenantId($tenant->id,$categories, $perPage);
+        return $this->productRepository->getProductsByCategories($tenant->id,$categories, $perPage);
     }
-    public function getProductByFlag(string $uuid,string $flag){
+    public function getProductByUuid(string $uuid,string $identify){
         $tenant = $this->tenantRepository->getTenantByUuid($uuid);
-        return $this->productRepository->getProductByFlag($tenant->id,$flag);
+        return $this->productRepository->getProductByUuid($tenant->id,$identify);
     }
 }

@@ -25,11 +25,11 @@ class CategoryApiController extends Controller
     public function getCategoriesByTenant(TenantFormRequest $request)
     {
         $perPage = (int)$request->get('per_page', 25);
-        $categories = $this->categoryService->getCategoriesByUuid($request->token_company, $perPage);
+        $categories = $this->categoryService->getCategoriesByTenant($request->token_company, $perPage);
         return CategoryResource::collection($categories);
     }
-    public function show(TenantFormRequest $request, $url){
-        $category = $this->categoryService->getCategoryByUrl($request->token_company, $url);
+    public function show(TenantFormRequest $request, $identify){
+        $category = $this->categoryService->getCategoryByUuid($request->token_company, $identify);
         if(!$category)
             return response()->json(['message'=>'Category not found'], 404);
 

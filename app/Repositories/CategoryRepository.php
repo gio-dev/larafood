@@ -28,9 +28,9 @@ class CategoryRepository implements CategoryRepositoryInterface
             ->where('tenant_id', $idTenant)
             ->paginate($perPage);
     }
-    public function getCategoryByUrl(int $idTenant,string $url){
+    public function getCategoryByUuid(int $idTenant,string $uuid){
         return DB::table($this->table)
-            ->where('url', $url)
+            ->where('uuid', $uuid)
             ->where('tenant_id', $idTenant)
             ->first();
     }
