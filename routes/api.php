@@ -20,6 +20,8 @@ use \App\Http\Controllers\Api\TableApiController;
 use \App\Http\Controllers\Api\ProductApiController;
 use \App\Http\Controllers\Api\Auth\RegisterController;
 use \App\Http\Controllers\Api\Auth\AuthClientController;
+use \App\Http\Controllers\Api\OrderApiController;
+
 Route::group([
     'middleware' => 'auth:sanctum',
     'prefix' => 'v1',
@@ -27,6 +29,9 @@ Route::group([
 ], function (){
     Route::get('/auth/me', [AuthClientController::class, 'me']);
     Route::post('/auth/logout', [AuthClientController::class, 'logout']);
+
+    Route::get('/auth/my-orders', [OrderApiController::class, 'myOrders']);
+    Route::post('/auth/orders', [OrderApiController::class, 'store']);
 });
 Route::group([
     'prefix' => 'v1',
@@ -66,6 +71,9 @@ Route::group([
      * Sanctum Auth
      */
     Route::post('/sanctum/token', [AuthClientController::class, 'auth']);
+
+    Route::post('/orders', [OrderApiController::class, 'store']);
+    Route::get('/orders/{idenify}', [OrderApiController::class, 'show']);
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
