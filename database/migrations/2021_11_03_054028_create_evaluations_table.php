@@ -13,9 +13,23 @@ class CreateEvaluationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('evaluations', function (Blueprint $table) {
-            $table->id();
+        Schema::create('orders_evaluations', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('order_id');
+            $table->unsignedBigInteger('client_id');
+            $table->double('stars');
+            $table->text('comment')->nullable();
             $table->timestamps();
+
+            $table->foreign('order_id')
+                ->references('id')
+                ->on('orders')
+                ->onDelete('cascade');
+
+            $table->foreign('client_id')
+                ->references('id')
+                ->on('clients')
+                ->onDelete('cascade');
         });
     }
 
@@ -26,6 +40,6 @@ class CreateEvaluationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('evaluations');
+        Schema::dropIfExists('orders_evaluations');
     }
 }

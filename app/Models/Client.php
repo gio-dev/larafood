@@ -25,4 +25,12 @@ class Client extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    public function evaluations(){
+        return $this->hasMany(Evaluation::class);
+    }
+
+    public function orders(){
+        return $this->hasMany(Order::class);
+    }
 }

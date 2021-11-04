@@ -21,6 +21,7 @@ use \App\Http\Controllers\Api\ProductApiController;
 use \App\Http\Controllers\Api\Auth\RegisterController;
 use \App\Http\Controllers\Api\Auth\AuthClientController;
 use \App\Http\Controllers\Api\OrderApiController;
+use \App\Http\Controllers\Api\EvaluationApiController;
 
 Route::group([
     'middleware' => 'auth:sanctum',
@@ -32,6 +33,8 @@ Route::group([
 
     Route::get('/auth/my-orders', [OrderApiController::class, 'myOrders']);
     Route::post('/auth/orders', [OrderApiController::class, 'store']);
+
+    Route::post('/auth/orders/{identify}/evaluations', [EvaluationApiController::class, 'store']);
 });
 Route::group([
     'prefix' => 'v1',
